@@ -2,6 +2,21 @@ import { useState } from "react";
 import { Header, AppMenu } from "../components";
 import { Container } from "@material-ui/core";
 
+const userList = [
+  {
+    id: 1,
+    username: "Sovarim",
+  },
+  {
+    id: 2,
+    username: "Persival",
+  },
+  {
+    id: 3,
+    username: "King",
+  },
+];
+
 const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -16,9 +31,9 @@ const Home = () => {
 
   return (
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <Header onMenuSwitch={handleMenuSwitch} />
-      <AppMenu open={menuOpen} onMenuClose={handleMenuClose} />
-      <Container style={{ paddingTop: 64 }}>
+      <Header onMenuSwitch={handleMenuSwitch} title="Chat" />
+      <AppMenu open={menuOpen} onMenuClose={handleMenuClose} list={userList} />
+      <Container style={{ paddingTop: 64 }} maxWidth="xl">
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

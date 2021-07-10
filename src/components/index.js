@@ -1,2 +1,2 @@
 export { Header } from "./Header";
-export { AppMenu } from "./AppMenu";
+export { AppMenu } from "./app-menu/AppMenu";

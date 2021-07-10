@@ -5,11 +5,6 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  Switch,
-  FormControlLabel,
-  FormGroup,
-  MenuItem,
-  Menu,
 } from "@material-ui/core";
 import { Menu as MenuIcon, AccountCircle } from "@material-ui/icons";
 
@@ -25,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ onMenuSwitch }) => {
+const Header = ({ onMenuSwitch, title }) => {
   const classes = useStyles();
   return (
     <AppBar position="absolute" className={classes.appBar}>
@@ -40,7 +35,7 @@ const Header = ({ onMenuSwitch }) => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
-          Photos
+          {title}
         </Typography>
         <div>
           <IconButton
@@ -57,8 +52,14 @@ const Header = ({ onMenuSwitch }) => {
   );
 };
 
+Header.defaultProps = {
+  title: "Title",
+  onMenuSwitch: null,
+};
+
 Header.propTypes = {
   onMenuSwitch: PropTypes.func,
+  title: PropTypes.string,
 };
 
 export { Header };
