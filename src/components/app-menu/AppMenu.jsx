@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     [theme.breakpoints.down("sm")]: {
-      position: "fixed",
+      position: "absolute",
       zIndex: 1200,
       width: "100%",
       background: "rgba(0, 0, 0, 0.5)",
@@ -23,16 +23,16 @@ const useStyles = makeStyles((theme) => ({
     whiteSpace: "nowrap",
     width: 320,
     height: "100%",
-    marginTop: 64,
+    paddingTop: 64,
     transition: theme.transitions.create(["width", "transform"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
     [theme.breakpoints.down("sm")]: {
-      position: "fixed",
+      position: "absolute",
     },
     [theme.breakpoints.down("xs")]: {
-      marginTop: 56,
+      paddingTop: 56,
     },
   },
   drawrePaperClose: {
@@ -48,9 +48,9 @@ const AppMenu = ({ open, onMenuClose, list }) => {
   const classes = useStyles();
   const link = "/chats";
 
-  const appMenuItems = list.map((item) => (
+  const appMenuItems = list.map((item, i) => (
     <AppMenuItem
-      key={item.id}
+      key={i}
       component={Link}
       to={`/chat/${item.id}`}
       title={item.username}

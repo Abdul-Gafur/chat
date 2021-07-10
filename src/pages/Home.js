@@ -1,6 +1,26 @@
 import { useState } from "react";
-import { Header, AppMenu } from "../components";
-import { Container } from "@material-ui/core";
+import {
+  Header,
+  AppMenu,
+  Chat,
+  DefaultContent,
+  ActionButton,
+} from "../components";
+import { Container, makeStyles, Hidden } from "@material-ui/core";
+import { Search as SearchIcon } from "@material-ui/icons";
+import { Switch, Route } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(10, 3, 3, 3),
+    backgroundColor: "#c1c0bb",
+  },
+  actionButton: {
+    position: "fixed",
+    right: 20,
+    bottom: 20,
+  },
+}));
 
 const userList = [
   {
@@ -18,6 +38,7 @@ const userList = [
 ];
 
 const Home = () => {
+  const classes = useStyles();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleMenuSwitch = (e) => {
@@ -33,24 +54,17 @@ const Home = () => {
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
       <Header onMenuSwitch={handleMenuSwitch} title="Chat" />
       <AppMenu open={menuOpen} onMenuClose={handleMenuClose} list={userList} />
-      <Container style={{ paddingTop: 64 }} maxWidth="xl">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </p>
-      </Container>
+      <Switch>
+        <Route exact path="/" component={DefaultContent} />
+        <Route path="/chat/:id">
+          <Container className={classes.container} maxWidth={false}>
+            <Chat />
+          </Container>
+        </Route>
+      </Switch>
+      <Hidden xsDown>
+        <ActionButton classes={classes.actionButton} Icon={<SearchIcon />} />
+      </Hidden>
     </div>
   );
 };

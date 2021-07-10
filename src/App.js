@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home } from "./pages";
 import "./App.css";
 
@@ -6,7 +6,10 @@ function App() {
   return (
     <Router>
       <div className="app-wrapper">
-        <Home />
+        <Switch>
+          <Route exact path="/login" render={() => "Login"} />
+          <Route path="/" component={Home} />
+        </Switch>
       </div>
     </Router>
   );

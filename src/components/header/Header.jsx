@@ -5,8 +5,13 @@ import {
   Toolbar,
   Typography,
   IconButton,
+  Hidden,
 } from "@material-ui/core";
-import { Menu as MenuIcon, AccountCircle } from "@material-ui/icons";
+import {
+  Menu as MenuIcon,
+  AccountCircle,
+  Search as SearchIcon,
+} from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -37,6 +42,18 @@ const Header = ({ onMenuSwitch, title }) => {
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
+        <Hidden only={["sm", "md", "lg", "xl"]}>
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <SearchIcon />
+            </IconButton>
+          </div>
+        </Hidden>
         <div>
           <IconButton
             aria-label="account of current user"
