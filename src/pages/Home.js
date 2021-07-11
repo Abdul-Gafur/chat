@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(10, 3, 3, 3),
     backgroundColor: "#c1c0bb",
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(7, 0, 0, 0),
+    },
   },
   actionButton: {
     position: "fixed",
@@ -62,7 +65,7 @@ const Home = () => {
           </Container>
         </Route>
       </Switch>
-      <Hidden xsDown>
+      <Hidden mdDown>
         <ActionButton classes={classes.actionButton} Icon={<SearchIcon />} />
       </Hidden>
     </div>

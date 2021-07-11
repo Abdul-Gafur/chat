@@ -42,7 +42,7 @@ const Header = ({ onMenuSwitch, title }) => {
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
-        <Hidden only={["sm", "md", "lg", "xl"]}>
+        <Hidden only={["lg", "xl"]}>
           <div>
             <IconButton
               aria-label="account of current user"
