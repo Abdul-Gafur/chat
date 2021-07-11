@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, forwardRef, useEffect } from "react";
 import {
   Header,
   AppMenu,
@@ -6,6 +6,7 @@ import {
   DefaultContent,
   ActionButton,
 } from "../components";
+import { useLocation } from "react-router-dom";
 import { Container, makeStyles, Hidden } from "@material-ui/core";
 import { Search as SearchIcon } from "@material-ui/icons";
 import { Switch, Route } from "react-router-dom";
@@ -76,9 +77,19 @@ const initialMessages = [
 
 const Home = () => {
   const classes = useStyles();
+  const location = useLocation();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [messages, setMessages] = useState(initialMessages);
   const [message, setMessage] = useState("");
+
+  const chatInputRef = useRef();
+  const chatRef = useRef();
+
+  useEffect(() => {
+    if (!chatRef.current) return;
+    chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  }, [messages, location]);
 
   const handleMenuSwitch = (e) => {
     setMenuOpen((value) => !value);
@@ -93,22 +104,8 @@ const Home = () => {
     setMenuOpen(false);
   };
 
-  // const handleMessageSubmitOnKeyDown = (e) => {
-  //   if (!(e.key === "Enter" || e.key === "Shift")) return;
-  //   setMessages((value) =>
-  //     value.concat([
-  //       {
-  //         id: value[value.length - 1].id + 1,
-  //         userId: 1,
-  //         chatId: 2,
-  //         message: message,
-  //       },
-  //     ])
-  //   );
-  //   setMessage("");
-  // };
-
   const handleMessageSubmit = (e) => {
+    if (!message) return;
     setMessages((value) =>
       value.concat([
         {
@@ -120,6 +117,7 @@ const Home = () => {
       ])
     );
     setMessage("");
+    chatInputRef.current.focus();
   };
 
   return (
@@ -135,6 +133,8 @@ const Home = () => {
               onSubmit={handleMessageSubmit}
               onTyping={handleMessageChange}
               messageValue={message}
+              inputRef={chatInputRef}
+              chatRef={chatRef}
             />
           </Container>
         </Route>

@@ -37,6 +37,8 @@ const Chat = ({
   onKeyDownSubmit,
   onTyping,
   messageValue,
+  chatRef,
+  inputRef,
 }) => {
   const classes = useStyles();
 
@@ -52,12 +54,15 @@ const Chat = ({
       elevation={3}
       onKeyDown={onKeyDownSubmit}
     >
-      <Box className={classes.chatItemContainer}>{chatItems}</Box>
+      <Box className={classes.chatItemContainer} ref={chatRef}>
+        {chatItems}
+      </Box>
       <Box className={classes.chatInputContainer}>
         <ChatInput
           classes={classes.chatInput}
           onChange={onTyping}
           value={messageValue}
+          inputRef={inputRef}
         />
         <IconButton color="primary" onClick={onSubmit}>
           <SendIcon />
@@ -77,6 +82,14 @@ Chat.propTypes = {
   onTyping: PropTypes.func,
   messageValue: PropTypes.string,
   onKeyDownSubmit: PropTypes.func,
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
+  chatRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]),
 };
 
 export { Chat };
