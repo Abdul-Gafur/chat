@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { Fab } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
 
 const ActionButton = ({ classes, color, Icon }) => {
   return (

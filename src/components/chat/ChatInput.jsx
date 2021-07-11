@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { FormControl, Input, InputLabel } from "@material-ui/core";
+import { FormControl, Input } from "@material-ui/core";
 
-const ChatInput = ({ classes, maxRows }) => {
+const ChatInput = ({ classes, maxRows, onChange, value }) => {
   return (
     <FormControl className={classes}>
       <Input
@@ -9,6 +9,8 @@ const ChatInput = ({ classes, maxRows }) => {
         multiline
         placeholder="Enter a message"
         maxRows={maxRows}
+        onChange={onChange}
+        value={value}
       />
     </FormControl>
   );
@@ -22,6 +24,8 @@ ChatInput.defaultProps = {
 ChatInput.propTypes = {
   classes: PropTypes.string,
   maxRows: PropTypes.number,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
 };
 
 export { ChatInput };

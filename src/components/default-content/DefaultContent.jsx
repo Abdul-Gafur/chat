@@ -1,4 +1,4 @@
-import { Container, Grid, Typography, makeStyles } from "@material-ui/core";
+import { Container, Grid, Typography } from "@material-ui/core";
 
 const DefaultContent = () => {
   return (

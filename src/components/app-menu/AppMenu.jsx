@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   drawerPaper: {
-    overflow: "auto",
+    overflowX: "hidden",
+    overflowY: "auto",
     position: "relative",
     whiteSpace: "nowrap",
     width: 320,
@@ -46,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AppMenu = ({ open, onMenuClose, list }) => {
   const classes = useStyles();
-  const link = "/chats";
 
   const appMenuItems = list.map((item, i) => (
     <AppMenuItem

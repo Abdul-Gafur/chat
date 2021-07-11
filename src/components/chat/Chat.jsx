@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { Paper, makeStyles, Box, IconButton } from "@material-ui/core";
 import { Send as SendIcon } from "@material-ui/icons";
 import { ChatInput } from "./ChatInput";
@@ -30,42 +31,52 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Chat = () => {
+const Chat = ({
+  messages,
+  onSubmit,
+  onKeyDownSubmit,
+  onTyping,
+  messageValue,
+}) => {
   const classes = useStyles();
-  return (
-    <Paper classes={{ root: classes.root }} elevation={3}>
-      <Box className={classes.chatItemContainer}>
-        <ChatItem justify="right">Муха ву хьо?</ChatItem>
-        <ChatItem justify="left">Дика ву</ChatItem>
-        <ChatItem justify="right">Х1умма дуй?</ChatItem>
-        <ChatItem justify="right">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi quas
-          quo, aut dolores, fugit iure consequuntur qui nobis repudiandae nulla
-          perferendis odio molestias quis voluptatibus magnam, doloribus
-          voluptatum ipsa debitis.
-        </ChatItem>
 
-        <ChatItem justify="left">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi quas
-          quo, aut dolores, fugit iure consequuntur qui nobis repudiandae nulla
-          perferendis odio molestias quis voluptatibus magnam, doloribus
-          voluptatum ipsa debitis.
-        </ChatItem>
-        <ChatItem justify="right">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nisi quas
-          quo, aut dolores, fugit iure consequuntur qui nobis repudiandae nulla
-          perferendis odio molestias quis voluptatibus magnam, doloribus
-          voluptatum ipsa debitis.
-        </ChatItem>
-      </Box>
+  const chatItems = messages.map((item) => (
+    <ChatItem key={item.id} justify={item.userId === 1 ? "right" : "left"}>
+      {item.message}
+    </ChatItem>
+  ));
+
+  return (
+    <Paper
+      classes={{ root: classes.root }}
+      elevation={3}
+      onKeyDown={onKeyDownSubmit}
+    >
+      <Box className={classes.chatItemContainer}>{chatItems}</Box>
       <Box className={classes.chatInputContainer}>
-        <ChatInput classes={classes.chatInput} />
-        <IconButton color="primary">
+        <ChatInput
+          classes={classes.chatInput}
+          onChange={onTyping}
+          value={messageValue}
+        />
+        <IconButton color="primary" onClick={onSubmit}>
           <SendIcon />
         </IconButton>
       </Box>
     </Paper>
   );
+};
+
+Chat.defaultProps = {
+  messages: [],
+};
+
+Chat.propTypes = {
+  messages: PropTypes.arrayOf(PropTypes.object),
+  onSubmit: PropTypes.func,
+  onTyping: PropTypes.func,
+  messageValue: PropTypes.string,
+  onKeyDownSubmit: PropTypes.func,
 };
 
 export { Chat };

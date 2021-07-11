@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(10, 3, 3, 3),
     backgroundColor: "#c1c0bb",
     [theme.breakpoints.down("xs")]: {
-      padding: theme.spacing(7, 0, 0, 0),
+      padding: theme.spacing(6, 0, 0, 0),
     },
   },
   actionButton: {
@@ -40,17 +40,79 @@ const userList = [
   },
 ];
 
+const initialMessages = [
+  {
+    id: 1,
+    userId: 2,
+    chatId: 2,
+    message: "Муха ву хьо?",
+  },
+  {
+    id: 2,
+    userId: 1,
+    chatId: 2,
+    message: "Дика ву",
+  },
+  {
+    id: 3,
+    userId: 2,
+    chatId: 2,
+    message: "Х1умма дуй?",
+  },
+  {
+    id: 4,
+    userId: 1,
+    chatId: 2,
+    message: "Дера кхи х1умма ма дац",
+  },
+];
+
 const Home = () => {
   const classes = useStyles();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [messages, setMessages] = useState(initialMessages);
+  const [message, setMessage] = useState("");
 
   const handleMenuSwitch = (e) => {
     setMenuOpen((value) => !value);
   };
 
+  const handleMessageChange = (e) => {
+    setMessage(e.target.value);
+  };
+
   const handleMenuClose = (e) => {
     if (!e.target.classList.contains("MuiDrawer-root")) return;
     setMenuOpen(false);
+  };
+
+  // const handleMessageSubmitOnKeyDown = (e) => {
+  //   if (!(e.key === "Enter" || e.key === "Shift")) return;
+  //   setMessages((value) =>
+  //     value.concat([
+  //       {
+  //         id: value[value.length - 1].id + 1,
+  //         userId: 1,
+  //         chatId: 2,
+  //         message: message,
+  //       },
+  //     ])
+  //   );
+  //   setMessage("");
+  // };
+
+  const handleMessageSubmit = (e) => {
+    setMessages((value) =>
+      value.concat([
+        {
+          id: value[value.length - 1].id + 1,
+          userId: 1,
+          chatId: 2,
+          message: message,
+        },
+      ])
+    );
+    setMessage("");
   };
 
   return (
@@ -61,7 +123,12 @@ const Home = () => {
         <Route exact path="/" component={DefaultContent} />
         <Route path="/chat/:id">
           <Container className={classes.container} maxWidth={false}>
-            <Chat />
+            <Chat
+              messages={messages}
+              onSubmit={handleMessageSubmit}
+              onTyping={handleMessageChange}
+              messageValue={message}
+            />
           </Container>
         </Route>
       </Switch>
