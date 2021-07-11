@@ -65,6 +65,13 @@ const initialMessages = [
     chatId: 2,
     message: "Дера кхи х1умма ма дац",
   },
+  {
+    id: 5,
+    userId: 1,
+    chatId: 2,
+    message:
+      "Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsum Lorem ipsum ",
+  },
 ];
 
 const Home = () => {

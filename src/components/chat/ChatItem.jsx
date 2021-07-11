@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 5,
     backgroundColor: theme.palette.primary.light,
     color: "#fff",
+    overflowWrap: "anywhere",
   },
   leftMessage: {
     borderRadius: "15px 10px 10px 0",
@@ -41,6 +42,7 @@ const ChatItem = ({ children, justify, ...other }) => {
     <Box className={clsx(classes.box, classes[justify])}>
       <Typography
         variant="subtitle1"
+        component="p"
         {...other}
         className={clsx(classes.typography, classes[`${justify}Message`])}
       >

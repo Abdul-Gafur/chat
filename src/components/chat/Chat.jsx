@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     padding: theme.spacing(2),
     height: "100%",
-    maxWidth: 600,
+    maxWidth: 800,
     borderRadius: 10,
     overflow: "hidden",
   },
