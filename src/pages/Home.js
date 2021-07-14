@@ -140,7 +140,11 @@ const Home = () => {
         </Route>
       </Switch>
       <Hidden mdDown>
-        <ActionButton classes={classes.actionButton} Icon={<SearchIcon />} />
+        <ActionButton
+          classes={classes.actionButton}
+          Icon={<SearchIcon />}
+          fab
+        />
       </Hidden>
     </div>
   );

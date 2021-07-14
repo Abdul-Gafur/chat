@@ -12,6 +12,7 @@ import {
   AccountCircle,
   Search as SearchIcon,
 } from "@material-ui/icons";
+import { ActionButton } from "../";
 
 const useStyles = makeStyles((theme) => ({
   menuButton: {
@@ -30,39 +31,24 @@ const Header = ({ onMenuSwitch, title }) => {
   return (
     <AppBar position="absolute" className={classes.appBar}>
       <Toolbar>
-        <IconButton
+        <ActionButton
           edge="start"
           className={classes.menuButton}
           color="inherit"
-          aria-label="menu"
           onClick={onMenuSwitch}
-        >
-          <MenuIcon />
-        </IconButton>
+          Icon={<MenuIcon />}
+        />
+
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
         <Hidden only={["lg", "xl"]}>
           <div>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <SearchIcon />
-            </IconButton>
+            <ActionButton color="inherit" Icon={<SearchIcon />} />
           </div>
         </Hidden>
         <div>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+          <ActionButton color="inherit" Icon={<AccountCircle />} />
         </div>
       </Toolbar>
     </AppBar>

@@ -19,7 +19,7 @@ const ChatInput = ({ classes, maxRows, onChange, value, inputRef }) => {
 
 ChatInput.defaultProps = {
   classes: "",
-  maxRows: 4,
+  maxRows: 6,
 };
 
 ChatInput.propTypes = {

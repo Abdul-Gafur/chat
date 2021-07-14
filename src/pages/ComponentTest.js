@@ -1,6 +1,6 @@
 import { Container, makeStyles } from "@material-ui/core";
 import { Switch, Route } from "react-router-dom";
-import { SearchModal } from "../components";
+import { Search } from "../components";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -17,7 +17,7 @@ const ComponentTest = () => {
     <Container className={classes.container}>
       <Switch>
         <Route path="/component/search-modal">
-          <SearchModal />
+          <Search />
         </Route>
       </Switch>
     </Container>
