@@ -48,7 +48,7 @@ const ChatItem = ({ children, justify, ...other }) => {
       component="p"
       {...other}
     >
-      {item}
+      {item ? item : <span>&ensp;</span>}
     </Typography>
   ));
 
@@ -64,7 +64,6 @@ const ChatItem = ({ children, justify, ...other }) => {
 ChatItem.defaultProps = {
   children: null,
   justify: "left",
-  children: "",
 };
 
 ChatItem.propTypes = {
