@@ -3,11 +3,17 @@ import { Typography, Box, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
-  box: {
+  container: {
     display: "flex",
     width: "100%",
     justifyContent: "flex-start",
     margin: "5px 0",
+  },
+  message: {
+    maxWidth: "70%",
+    backgroundColor: theme.palette.primary.light,
+    padding: 8,
+    color: "#fff",
   },
   left: {
     justifyContent: "flex-start",
@@ -19,11 +25,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
   },
   typography: {
-    maxWidth: "70%",
-    padding: 5,
-    backgroundColor: theme.palette.primary.light,
-    color: "#fff",
-    overflowWrap: "anywhere",
+    wordBreak: "break-word",
   },
   leftMessage: {
     borderRadius: "15px 10px 10px 0",
@@ -38,16 +40,23 @@ const useStyles = makeStyles((theme) => ({
 
 const ChatItem = ({ children, justify, ...other }) => {
   const classes = useStyles();
+
+  const message = children.split(/\n/).map((item, i) => (
+    <Typography
+      key={`message-${i}`}
+      variant="subtitle1"
+      component="p"
+      {...other}
+    >
+      {item}
+    </Typography>
+  ));
+
   return (
-    <Box className={clsx(classes.box, classes[justify])}>
-      <Typography
-        variant="subtitle1"
-        component="p"
-        {...other}
-        className={clsx(classes.typography, classes[`${justify}Message`])}
-      >
-        {children}
-      </Typography>
+    <Box className={clsx(classes.container, classes[justify])}>
+      <Box className={clsx(classes[`${justify}Message`], classes.message)}>
+        {message}
+      </Box>
     </Box>
   );
 };
@@ -55,6 +64,7 @@ const ChatItem = ({ children, justify, ...other }) => {
 ChatItem.defaultProps = {
   children: null,
   justify: "left",
+  children: "",
 };
 
 ChatItem.propTypes = {

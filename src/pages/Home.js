@@ -64,7 +64,7 @@ const initialMessages = [
     id: 4,
     userId: 1,
     chatId: 2,
-    message: "Дера кхи х1умма ма дац",
+    message: "Дера кхи х1умма ма дац ",
   },
   {
     id: 5,
