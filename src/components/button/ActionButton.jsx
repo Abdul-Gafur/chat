@@ -13,11 +13,11 @@ const ActionButton = ({
   return (
     <>
       {fab ? (
-        <Fab className={classes} color={color} variant={fabVariant} {...other}>
+        <Fab classes={classes} color={color} variant={fabVariant} {...other}>
           {Icon}
         </Fab>
       ) : (
-        <IconButton color={color} {...other}>
+        <IconButton classes={classes} color={color} {...other}>
           {Icon}
         </IconButton>
       )}
@@ -27,14 +27,14 @@ const ActionButton = ({
 
 ActionButton.defaultProps = {
   classes: "",
-  color: "primary",
+  color: "default",
   Icon: "",
   fab: false,
   fabVariant: "circular",
 };
 
 ActionButton.propTypes = {
-  classes: PropTypes.string,
+  classes: PropTypes.objectOf(PropTypes.string),
   color: PropTypes.string,
   Icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   fab: PropTypes.bool,

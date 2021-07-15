@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Search = ({ open }) => {
+const Search = ({ open, onClose }) => {
   const classes = useStyles();
   return (
-    <Modal open={open} className={classes.modal}>
+    <Modal open={open} className={classes.modal} onClose={onClose}>
       <Container maxWidth="sm">
         <Paper elevation={2} classes={{ root: classes.paperRoot }}>
           <SearchInput />
@@ -27,11 +27,12 @@ const Search = ({ open }) => {
 };
 
 Search.defaultProps = {
-  open: true,
+  open: false,
 };
 
 Search.propTypes = {
   open: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
 export { Search };

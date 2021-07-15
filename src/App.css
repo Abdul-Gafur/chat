@@ -41,13 +41,9 @@
   box-sizing: border-box;
 }
 
-html, body, #root {
+html, body, #root,.app-wrapper {
   height: 100%;
   width: 100%;
 }
 
-.app-wrapper {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
+

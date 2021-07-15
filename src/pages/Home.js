@@ -5,6 +5,7 @@ import {
   Chat,
   DefaultContent,
   ActionButton,
+  Search,
 } from "../components";
 import { useLocation } from "react-router-dom";
 import { Container, makeStyles, Hidden } from "@material-ui/core";
@@ -82,6 +83,7 @@ const Home = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [messages, setMessages] = useState(initialMessages);
   const [message, setMessage] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const chatInputRef = useRef();
   const chatRef = useRef();
@@ -90,6 +92,14 @@ const Home = () => {
     if (!chatRef.current) return;
     chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [messages, location]);
+
+  const handleSearchOpen = () => {
+    setSearchOpen(true);
+  };
+
+  const handleSearchClose = () => {
+    setSearchOpen(false);
+  };
 
   const handleMenuSwitch = (e) => {
     setMenuOpen((value) => !value);
@@ -141,11 +151,14 @@ const Home = () => {
       </Switch>
       <Hidden mdDown>
         <ActionButton
-          classes={classes.actionButton}
+          classes={{ root: classes.actionButton }}
           Icon={<SearchIcon />}
           fab
+          onClick={handleSearchOpen}
+          color="primary"
         />
       </Hidden>
+      <Search open={searchOpen} onClose={handleSearchClose} />
     </div>
   );
 };
