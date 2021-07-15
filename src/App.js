@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Home, ComponentTest } from "./pages";
+import { Home, ComponentTest, Login } from "./pages";
 import "./App.css";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
         <Switch>
           <Route path="/component" component={ComponentTest} />
 
-          <Route exact path="/login" render={() => "Login"} />
+          <Route exact path="/login" component={Login} />
           <Route path="/" component={Home} />
         </Switch>
       </div>

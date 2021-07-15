@@ -4,7 +4,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  IconButton,
   Hidden,
 } from "@material-ui/core";
 import {

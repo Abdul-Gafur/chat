@@ -9,7 +9,7 @@ import {
 import { Chat as ChatIcon } from "@material-ui/icons";
 import { ActionButton } from "../";
 
-const SearchResultItem = ({ data }) => {
+const SearchResultItem = ({ data, onClick }) => {
   return (
     <ListItem button>
       <ListItemAvatar>
@@ -17,7 +17,7 @@ const SearchResultItem = ({ data }) => {
       </ListItemAvatar>
       <ListItemText primary={data.username} />
       <ListItemSecondaryAction>
-        <ActionButton Icon={<ChatIcon />} color="primary" />
+        <ActionButton Icon={<ChatIcon />} color="primary" onClick={onClick} />
       </ListItemSecondaryAction>
     </ListItem>
   );
@@ -31,7 +31,10 @@ SearchResultItem.defaultProps = {
 };
 
 SearchResultItem.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.shape({
+    username: PropTypes.string.isRequired,
+    avatarURL: PropTypes.string.isRequired,
+  }),
 };
 
 export { SearchResultItem };
