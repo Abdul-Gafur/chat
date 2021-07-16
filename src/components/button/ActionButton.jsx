@@ -10,6 +10,7 @@ const ActionButton = ({
   fab,
   ...other
 }) => {
+  console.log(classes);
   return (
     <>
       {fab ? (
@@ -34,7 +35,10 @@ ActionButton.defaultProps = {
 };
 
 ActionButton.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string),
+  // classes: PropTypes.oneOfType([
+  //   PropTypes.objectOf(PropTypes.string),
+  //   PropTypes.string,
+  // ]),
   color: PropTypes.string,
   Icon: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
   fab: PropTypes.bool,
