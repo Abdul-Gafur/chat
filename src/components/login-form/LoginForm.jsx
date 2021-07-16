@@ -84,8 +84,8 @@ const LoginForm = ({
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={Yup.object().shape({
-          username: Yup.string().max(255).required("Login is required"),
-          password: Yup.string().max(255).required("Password is required"),
+          username: Yup.string().max(255).required("username is required"),
+          password: Yup.string().max(255).required("password is required"),
         })}
         onSubmit={onSubmit}
       >
@@ -103,12 +103,13 @@ const LoginForm = ({
               <Grid item xs={12}>
                 <TextField
                   id="username"
+                  name="username"
                   type="text"
                   error={Boolean(touched.username && errors.username)}
                   helperText={touched.username && errors.username}
                   classes={{ root: classes.TextFieldRoot }}
                   variant="outlined"
-                  label="Login"
+                  label="Username"
                   value={values.username}
                   onBlur={handleBlur}
                   onChange={handleChange}
@@ -117,6 +118,7 @@ const LoginForm = ({
               <Grid item xs={12}>
                 <TextField
                   id="password"
+                  name="password"
                   type={showPassword ? "text" : "password"}
                   error={Boolean(touched.password && errors.password)}
                   helperText={touched.password && errors.password}

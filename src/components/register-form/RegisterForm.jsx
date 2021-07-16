@@ -13,6 +13,8 @@ import {
   Visibility,
   VisibilityOff,
 } from "@material-ui/icons";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { ActionButton } from "../";
 
 const useStyles = makeStyles((theme) => ({
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterForm = () => {
+const RegisterForm = (onSubmit) => {
   const classes = useStyles();
   return (
     <Box>
@@ -68,63 +70,111 @@ const RegisterForm = () => {
           Register
         </Typography>
       </Box>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              id="username"
-              type="text"
-              classes={{ root: classes.TextFieldRoot }}
-              variant="outlined"
-              label="Login"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="password"
-              type={"password"}
-              classes={{ root: classes.TextFieldRoot }}
-              variant="outlined"
-              label="Password"
-              InputProps={{
-                endAdornment: (
-                  <ActionButton
-                    classes={{ root: classes.actionButton }}
-                    Icon={<Visibility />}
-                  />
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="confirmPassword"
-              type={"password"}
-              classes={{ root: classes.TextFieldRoot }}
-              variant="outlined"
-              label="Confirm Password"
-              InputProps={{
-                endAdornment: (
-                  <ActionButton
-                    classes={{ root: classes.actionButton }}
-                    Icon={<Visibility />}
-                  />
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              classes={{ root: classes.buttonRoot }}
-              color="primary"
-              variant="contained"
-              type="submit"
-            >
-              Register
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
+      <Formik
+        initialValues={{ username: "", password: "", confirmPassword: "" }}
+        validationSchema={Yup.object().shape({
+          username: Yup.string()
+            .min(4)
+            .max(255)
+            .required("username is required"),
+          password: Yup.string()
+            .min(8)
+            .max(255)
+            .required("password is required"),
+          confirmPassword: Yup.string()
+            .oneOf([Yup.ref("password")], "passwords must match")
+            .required("сonfirm your password"),
+        })}
+        onSubmit={onSubmit}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  id="username"
+                  name="username"
+                  type="text"
+                  error={Boolean(touched.username && errors.username)}
+                  helperText={touched.username && errors.username}
+                  classes={{ root: classes.TextFieldRoot }}
+                  variant="outlined"
+                  label="Username"
+                  value={values.username}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="password"
+                  name="password"
+                  type={"password"}
+                  error={Boolean(touched.password && errors.password)}
+                  helperText={touched.password && errors.password}
+                  classes={{ root: classes.TextFieldRoot }}
+                  variant="outlined"
+                  label="Password"
+                  value={values.password}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <ActionButton
+                        classes={{ root: classes.actionButton }}
+                        Icon={<Visibility />}
+                      />
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  type={"password"}
+                  error={Boolean(
+                    touched.confirmPassword && errors.confirmPassword
+                  )}
+                  helperText={touched.confirmPassword && errors.confirmPassword}
+                  classes={{ root: classes.TextFieldRoot }}
+                  variant="outlined"
+                  label="Confirm Password"
+                  value={values.confirmPassword}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <ActionButton
+                        classes={{ root: classes.actionButton }}
+                        Icon={<Visibility />}
+                      />
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  classes={{ root: classes.buttonRoot }}
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                >
+                  Register
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        )}
+      </Formik>
     </Box>
   );
 };
