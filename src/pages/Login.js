@@ -8,19 +8,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const initialFormData = {
-  username: "",
-  password: "",
-};
-
 const Login = () => {
   const classes = useStyles();
 
-  const [formData, setFormData] = useState(initialFormData);
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData((value) => ({ ...value, [e.target.id]: e.target.value }));
+  const handleSubmit = (values) => {
+    console.log(values);
   };
 
   const handleShowPassword = () => {
@@ -30,10 +24,9 @@ const Login = () => {
   return (
     <Container maxWidth="xs" classes={{ root: classes.containerRoot }}>
       <LoginForm
-        formData={formData}
-        onChange={handleChange}
         showPassword={showPassword}
         onShowPasswordClick={handleShowPassword}
+        onSubmit={handleSubmit}
       />
     </Container>
   );

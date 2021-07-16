@@ -17,6 +17,8 @@ import {
   VisibilityOff,
 } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import { ActionButton } from "../";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,11 +32,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     textAlign: "center",
   },
-  TextFieldRoot: {
-    width: "100%",
-  },
   avatarRoot: {
     backgroundColor: theme.palette.primary.main,
+  },
+  TextFieldRoot: {
+    width: "100%",
   },
   buttonRoot: {
     width: "100%",
@@ -59,10 +61,9 @@ const LoginForm = ({
   onChange,
   showPassword,
   onShowPasswordClick,
+  onSubmit,
 }) => {
   const classes = useStyles();
-
-  const { username, password } = formData;
 
   return (
     <Box>
@@ -77,67 +78,92 @@ const LoginForm = ({
           component="h1"
           classes={{ root: classes.title }}
         >
-          Login
+          Log in
         </Typography>
       </Box>
-      <form>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              id="username"
-              type="text"
-              classes={{ root: classes.TextFieldRoot }}
-              variant="outlined"
-              label="Login"
-              value={username}
-              onChange={onChange}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              id="password"
-              type={showPassword ? "text" : "password"}
-              classes={{ root: classes.TextFieldRoot }}
-              variant="outlined"
-              label="Password"
-              value={password}
-              onChange={onChange}
-              InputProps={{
-                endAdornment: (
-                  <ActionButton
-                    classes={{ root: classes.actionButton }}
-                    Icon={showPassword ? <Visibility /> : <VisibilityOff />}
-                    onClick={onShowPasswordClick}
+      <Formik
+        initialValues={{ username: "", password: "" }}
+        validationSchema={Yup.object().shape({
+          username: Yup.string().max(255).required("Login is required"),
+          password: Yup.string().max(255).required("Password is required"),
+        })}
+        onSubmit={onSubmit}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <TextField
+                  id="username"
+                  type="text"
+                  error={Boolean(touched.username && errors.username)}
+                  helperText={touched.username && errors.username}
+                  classes={{ root: classes.TextFieldRoot }}
+                  variant="outlined"
+                  label="Login"
+                  value={values.username}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  error={Boolean(touched.password && errors.password)}
+                  helperText={touched.password && errors.password}
+                  classes={{ root: classes.TextFieldRoot }}
+                  variant="outlined"
+                  label="Password"
+                  value={values.password}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  InputProps={{
+                    endAdornment: (
+                      <ActionButton
+                        classes={{ root: classes.actionButton }}
+                        Icon={showPassword ? <Visibility /> : <VisibilityOff />}
+                        onClick={onShowPasswordClick}
+                      />
+                    ),
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl>
+                  <FormControlLabel
+                    control={<Checkbox id="rememberMe" color="primary" />}
+                    label="Remeber me"
                   />
-                ),
-              }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl>
-              <FormControlLabel
-                control={<Checkbox id="rememberMe" color="primary" />}
-                label="Remeber me"
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              classes={{ root: classes.buttonRoot }}
-              color="primary"
-              variant="contained"
-              type="submit"
-            >
-              Login
-            </Button>
-          </Grid>
-          <Grid item xs={12} classes={{ root: classes.register }}>
-            <Typography variant="subtitle1" component={Link} to="#">
-              Register
-            </Typography>
-          </Grid>
-        </Grid>
-      </form>
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  classes={{ root: classes.buttonRoot }}
+                  color="primary"
+                  variant="contained"
+                  type="submit"
+                >
+                  Log in
+                </Button>
+              </Grid>
+              <Grid item xs={12} classes={{ root: classes.register }}>
+                <Typography variant="subtitle1" component={Link} to="/register">
+                  Register
+                </Typography>
+              </Grid>
+            </Grid>
+          </form>
+        )}
+      </Formik>
     </Box>
   );
 };
