@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     position: "relative",
     flexDirection: "column",
-    justifyContent: "end",
+    justifyContent: "flex-end",
     padding: theme.spacing(2),
     height: "100%",
     maxWidth: 800,
