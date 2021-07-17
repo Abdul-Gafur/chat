@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { Container, makeStyles } from "@material-ui/core";
-import { LoginForm } from "../components";
+import { makeStyles, Container } from "@material-ui/core";
+import { LoginForm } from "../containers";
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
@@ -11,23 +10,9 @@ const useStyles = makeStyles((theme) => ({
 const Login = () => {
   const classes = useStyles();
 
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleSubmit = (values) => {
-    console.log(values);
-  };
-
-  const handleShowPassword = () => {
-    setShowPassword((value) => !value);
-  };
-
   return (
     <Container maxWidth="xs" classes={{ root: classes.containerRoot }}>
-      <LoginForm
-        showPassword={showPassword}
-        onShowPasswordClick={handleShowPassword}
-        onSubmit={handleSubmit}
-      />
+      <LoginForm />
     </Container>
   );
 };

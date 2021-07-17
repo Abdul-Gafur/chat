@@ -56,13 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const LoginForm = ({
-  formData,
-  onChange,
-  showPassword,
-  onShowPasswordClick,
-  onSubmit,
-}) => {
+const LoginForm = ({ showPassword, onShowPasswordClick, onSubmit }) => {
   const classes = useStyles();
 
   return (

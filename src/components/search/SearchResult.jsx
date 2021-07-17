@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { List } from "@material-ui/core";
 import { SearchResultItem } from "./SearchResultItem";
 

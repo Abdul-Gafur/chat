@@ -1,5 +1,5 @@
 import { Container, makeStyles } from "@material-ui/core";
-import { RegisterForm } from "../components";
+import { RegisterForm } from "../containers";
 
 const useStyles = makeStyles((theme) => ({
   containerRoot: {
@@ -9,6 +9,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = () => {
   const classes = useStyles();
+
   return (
     <Container maxWidth="xs" classes={{ root: classes.containerRoot }}>
       <RegisterForm />

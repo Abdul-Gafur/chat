@@ -52,7 +52,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RegisterForm = (onSubmit) => {
+const RegisterForm = ({
+  onSubmit,
+  showPassword,
+  showConfirmPassword,
+  onShowPasswordClick,
+  onShowConfirmPasswordClick,
+}) => {
   const classes = useStyles();
   return (
     <Box>
@@ -117,7 +123,7 @@ const RegisterForm = (onSubmit) => {
                 <TextField
                   id="password"
                   name="password"
-                  type={"password"}
+                  type={showPassword ? "text" : "password"}
                   error={Boolean(touched.password && errors.password)}
                   helperText={touched.password && errors.password}
                   classes={{ root: classes.TextFieldRoot }}
@@ -130,7 +136,8 @@ const RegisterForm = (onSubmit) => {
                     endAdornment: (
                       <ActionButton
                         classes={{ root: classes.actionButton }}
-                        Icon={<Visibility />}
+                        Icon={showPassword ? <Visibility /> : <VisibilityOff />}
+                        onClick={onShowPasswordClick}
                       />
                     ),
                   }}
@@ -140,7 +147,7 @@ const RegisterForm = (onSubmit) => {
                 <TextField
                   id="confirmPassword"
                   name="confirmPassword"
-                  type={"password"}
+                  type={showConfirmPassword ? "text" : "password"}
                   error={Boolean(
                     touched.confirmPassword && errors.confirmPassword
                   )}
@@ -155,7 +162,14 @@ const RegisterForm = (onSubmit) => {
                     endAdornment: (
                       <ActionButton
                         classes={{ root: classes.actionButton }}
-                        Icon={<Visibility />}
+                        Icon={
+                          showConfirmPassword ? (
+                            <Visibility />
+                          ) : (
+                            <VisibilityOff />
+                          )
+                        }
+                        onClick={onShowConfirmPasswordClick}
                       />
                     ),
                   }}
@@ -177,6 +191,10 @@ const RegisterForm = (onSubmit) => {
       </Formik>
     </Box>
   );
+};
+
+RegisterForm.propTypes = {
+  onSubmit: PropTypes.func,
 };
 
 export { RegisterForm };
