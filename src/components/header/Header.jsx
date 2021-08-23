@@ -10,6 +10,7 @@ import {
   Menu as MenuIcon,
   AccountCircle,
   Search as SearchIcon,
+  ExitToApp as ExitIcon,
 } from "@material-ui/icons";
 import { ActionButton } from "../";
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Header = ({ onMenuSwitch, title }) => {
+const Header = ({ onMenuSwitch, onExit, onSearch, title }) => {
   const classes = useStyles();
   return (
     <AppBar position="absolute" className={classes.appBar}>
@@ -43,11 +44,18 @@ const Header = ({ onMenuSwitch, title }) => {
         </Typography>
         <Hidden only={["lg", "xl"]}>
           <div>
-            <ActionButton color="inherit" Icon={<SearchIcon />} />
+            <ActionButton
+              color="inherit"
+              Icon={<SearchIcon />}
+              onClick={onSearch}
+            />
           </div>
         </Hidden>
         <div>
           <ActionButton color="inherit" Icon={<AccountCircle />} />
+        </div>
+        <div>
+          <ActionButton color="inherit" Icon={<ExitIcon />} onClick={onExit} />
         </div>
       </Toolbar>
     </AppBar>

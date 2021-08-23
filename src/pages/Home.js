@@ -3,7 +3,7 @@ import { Header, DefaultContent, ActionButton, Search } from "../components";
 import { AppMenu, Chat } from "../containers";
 import { Container, makeStyles, Hidden } from "@material-ui/core";
 import { Search as SearchIcon } from "@material-ui/icons";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -25,6 +25,7 @@ const Home = () => {
 
   const [searchOpen, setSearchOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const history = useHistory();
 
   const handleSearchOpen = () => {
     setSearchOpen(true);
@@ -43,9 +44,18 @@ const Home = () => {
     setMenuOpen(false);
   };
 
+  const handleExit = () => {
+    history.push("/login");
+  };
+
   return (
     <div style={{ display: "flex", width: "100%", height: "100%" }}>
-      <Header onMenuSwitch={handleMenuSwitch} title="Chat" />
+      <Header
+        onMenuSwitch={handleMenuSwitch}
+        onExit={handleExit}
+        onSearch={handleSearchOpen}
+        title="Chat"
+      />
       <AppMenu open={menuOpen} onMenuClose={handleMenuClose} />
       <Switch>
         <Route exact path="/" component={DefaultContent} />

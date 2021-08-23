@@ -4,7 +4,7 @@ import "./App.css";
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <div className="app-wrapper">
         <Switch>
           <Route path="/component" component={ComponentTest} />

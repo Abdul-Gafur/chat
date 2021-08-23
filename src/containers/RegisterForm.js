@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { RegisterForm as BaseRegisterForm } from "../components";
 
 const RegisterForm = () => {
+  const history = useHistory();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const handleSubmit = ({ confirmPassword, ...values }) => {
-    console.log(values);
+    history.push("/");
   };
 
   const handleShowPassword = () => {
